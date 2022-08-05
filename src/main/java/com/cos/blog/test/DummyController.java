@@ -78,20 +78,20 @@ public class DummyController {
 	//여기 어렵다.. 
 	//한페이지당 2건의 데이터를 리턴받아 볼 예정
 	@GetMapping("/dummy/user")
-	public List<User> pageList(@PageableDefault(size=2, sort="id", direction = Sort.Direction.DESC) Pageable pageable){
+	public Page<User> pageList(@PageableDefault(size=2, sort="id", direction = Sort.Direction.DESC) Pageable pageable){
 		Page<User> pagingUser = userRepository.findAll(pageable);
 
 		if(pagingUser.isFirst()) {
 			System.out.println("첫번 째 페이지 처리");
 			List<User> users= pagingUser.getContent();
-			return users;
+			return pagingUser;
 		}else if(pagingUser.isLast()) {
 			System.out.println("마지막 페이지 처리");
 			List<User> users= pagingUser.getContent();
-			return users;
+			return pagingUser	;
 		}else {
 		List<User> users= pagingUser.getContent();
-		return users;
+		return pagingUser;
 		}
 	}
 	
